@@ -4,7 +4,7 @@ import { useSimpleForm } from "../composables/useSimpleForm";
 import { worldBankSchema } from "../schemas/validationSchemas";
 
 // Call the composable to get its state and methods
-const { countryData, error, fetchCountry } = useWorldBankApi();
+const { countryData, error, fetchCountry, isLoading } = useWorldBankApi();
 const { formData, formErrors, validateForm, updateField } = useSimpleForm(
   { isoCode: "" },
   worldBankSchema
@@ -54,8 +54,11 @@ async function handleSearch() {
     </div>
 
     <div class="results-area">
-      <!-- <div v-if="isLoading" class="loading-message">Fetching data...</div> -->
-      <div v-if="error" class="error-message">{{ error }}</div>
+      <div v-if="isLoading" class="loading-display">
+        <div class="spinner"></div>
+        <p class="loading-message-text">Fetching data...</p>
+      </div>
+      <div v-if="error && !isLoading" class="error-message">{{ error }}</div>
       <div v-if="countryData && !isLoading" class="country-info">
         <h2>{{ countryData.name }} ({{ countryData.iso2Code }})</h2>
         <p>
@@ -108,6 +111,40 @@ async function handleSearch() {
 </template>
 
 <style scoped>
+.loading-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #777;
+  font-style: italic;
+  padding: 30px 0;
+  width: 100%;
+}
+
+.spinner {
+  border: 5px solid rgba(128, 128, 128, 0.2);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border-left-color: #6b49bf;
+  animation: spin 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-message-text {
+  font-size: 0.95em;
+}
+
 .country-search-container {
   background-color: #ffffff;
   max-width: 650px;

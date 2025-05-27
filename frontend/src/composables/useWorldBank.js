@@ -6,10 +6,11 @@ export function useWorldBankApi() {
     // Reactive state (Only data and error)
     const countryData = ref(null);
     const error = ref(null);
+    const isLoading = ref(false);
 
     // Function to fetch data
     const fetchCountry = async (isoCode) => {
-        // 1. Clear previous data/errors
+        isLoading.value = true;
         countryData.value = null;
         error.value = null;
 
@@ -17,21 +18,26 @@ export function useWorldBankApi() {
         const apiUrl = `http://localhost:3000/api/country/${isoCode}`;
 
         try {
-            // 3. Make the API call using axios
+            // Make the API call using axios
             const response = await axios.get(apiUrl);
+            // --- ARTIFICIAL DELAY FOR TESTING ---
+            const artificialDelayMs = 2500; // Delay for 2.5 seconds
+            console.log(`[Server] Introducing an artificial delay of ${artificialDelayMs}ms...`);
+            await new Promise(resolve => setTimeout(resolve, artificialDelayMs));
+            // --- END OF ARTIFICIAL DELAY ---
             countryData.value = response.data; // On success, store the data
         } catch (err) {
-            // 4. Handle errors
             console.error('[Composable] Error fetching country data:', err);
-            // Store a user-friendly error message.
             error.value = err.response?.data?.error || err.message || 'An error occurred while fetching data.';
+        } finally {
+            isLoading.value = false;
         }
     };
 
-    // 5. Expose the reactive state and the fetch function
     return {
         countryData,
         error,
+        isLoading,
         fetchCountry
     };
 }
