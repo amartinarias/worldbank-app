@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from "vue";
 import { useWorldBankApi } from "../composables/useWorldBank";
 import { useSimpleForm } from "../composables/useSimpleForm";
 import { worldBankSchema } from "../schemas/validationSchemas";
@@ -27,18 +26,11 @@ async function handleSearch() {
 <template>
   <div class="country-search-container">
     <header class="app-header">
-      <svg
+      <img
+        src="/assets/world-bank-logo.svg"
+        alt="World Bank Icon"
         class="app-icon"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        width="32px"
-        height="32px"
-      >
-        <path
-          d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93s3.05-7.44 7-7.93v15.86zm2-15.86c3.95.49 7 3.85 7 7.93s-3.05 7.44-7 7.93V4.07z"
-        />
-      </svg>
+      />
       <h1 class="app-title">Country Data Finder</h1>
     </header>
 
@@ -50,7 +42,6 @@ async function handleSearch() {
         :value="formData.isoCode"
         @input="updateField('isoCode', $event.target.value)"
         placeholder="e.g., US, GBR"
-        maxlength="3"
         :class="{ 'input-error': formErrors.isoCode }"
         @keyup.enter="handleSearch"
       />
@@ -63,7 +54,7 @@ async function handleSearch() {
     </div>
 
     <div class="results-area">
-      <div v-if="isLoading" class="loading-message">Fetching data...</div>
+      <!-- <div v-if="isLoading" class="loading-message">Fetching data...</div> -->
       <div v-if="error" class="error-message">{{ error }}</div>
       <div v-if="countryData && !isLoading" class="country-info">
         <h2>{{ countryData.name }} ({{ countryData.iso2Code }})</h2>
@@ -118,14 +109,14 @@ async function handleSearch() {
 
 <style scoped>
 .country-search-container {
-  background-color: #ffffff; /* White card on the EAEAEA background */
-  max-width: 650px; /* A good medium width */
+  background-color: #ffffff;
+  max-width: 650px;
   width: 100%;
-  margin-top: 20px; /* Let #app in global CSS handle overall centering */
+  margin-top: 20px;
   padding: 30px 35px;
   border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Softer shadow */
-  color: #141414; /* Using --color-dark from your palette */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  color: #141414;
   text-align: center;
 }
 
@@ -136,17 +127,19 @@ async function handleSearch() {
   gap: 12px;
   margin-bottom: 30px;
   padding-bottom: 15px;
-  border-bottom: 1px solid #e0e0e0; /* Light grey border */
+  border-bottom: 1px solid #e0e0e0;
 }
 
 .app-icon {
-  color: #6b49bf; /* Using --primary from your palette */
+  width: 36px;
+  height: 36px;
+  vertical-align: middle;
 }
 
 .app-title {
-  font-size: 1.8em;
-  color: #6b49bf; /* Using --primary from your palette */
-  font-weight: 600;
+  font-size: 2.2em;
+  color: #6b49bf;
+  font-weight: bold;
   margin: 0;
 }
 
@@ -160,14 +153,14 @@ async function handleSearch() {
 
 .search-box label {
   font-weight: 500;
-  color: #555; /* Slightly lighter than main text */
+  color: #555;
   font-size: 0.95em;
 }
 
 input[type="text"] {
   padding: 10px 15px;
   border-radius: 6px;
-  border: 1px solid #aeb5bd; /* Using --color-grey from your palette */
+  border: 1px solid #aeb5bd;
   font-size: 1.1em;
   text-align: center;
   width: 180px;
@@ -177,8 +170,8 @@ input[type="text"] {
 
 input[type="text"]:focus {
   outline: none;
-  border-color: #6b49bf; /* Using --primary */
-  box-shadow: 0 0 0 3px rgba(107, 73, 191, 0.2); /* Focus ring with primary color */
+  border-color: #6b49bf;
+  box-shadow: 0 0 0 3px rgba(107, 73, 191, 0.2);
 }
 
 input[type="text"]:focus::placeholder {
@@ -187,15 +180,15 @@ input[type="text"]:focus::placeholder {
 }
 
 input.input-error {
-  border-color: #ff6e6e !important; /* Using --error */
-  background-color: #fff5f5; /* Very light red */
+  border-color: #ff6e6e !important;
+  background-color: #fff5f5;
 }
 
 .search-button {
   padding: 10px 25px;
   border-radius: 6px;
-  background-color: #4f2ba9; /* Using --button-purple */
-  color: #fff; /* Using --color-light */
+  background-color: #4f2ba9;
+  color: #fff;
   border: none;
   cursor: pointer;
   font-size: 1em;
@@ -204,19 +197,19 @@ input.input-error {
 }
 
 .search-button:hover {
-  background-color: #3e218b; /* Using your --button-purple-hover (or a derived darker) */
+  background-color: #3e218b;
   transform: translateY(-1px);
 }
 
 .search-button:disabled {
-  background-color: #d1c2f6; /* Using your --button-purple-disabled */
+  background-color: #d1c2f6;
   color: #8c80b1;
   cursor: not-allowed;
   transform: translateY(0);
 }
 
 .validation-error {
-  color: #ff6e6e; /* Using --error */
+  color: #ff6e6e;
   font-size: 0.9em;
   min-height: 1.3em;
   font-weight: 500;
@@ -226,7 +219,7 @@ input.input-error {
   margin-top: 20px;
   padding: 20px;
   border-radius: 8px;
-  background-color: #f9f9f9; /* Simple light grey for contrast */
+  background-color: #f9f9f9;
   min-height: 150px;
   text-align: left;
 }
@@ -234,23 +227,23 @@ input.input-error {
 .country-info h2 {
   margin-top: 0;
   margin-bottom: 15px;
-  color: #46d2be; /* Using --secondary / --valid */
+  color: #46d2be;
   font-size: 1.4em;
   font-weight: 600;
   padding-bottom: 10px;
-  border-bottom: 1px solid #e0e0e0; /* Light grey border */
+  border-bottom: 1px solid #e0e0e0;
 }
 
 .country-info p {
   margin: 8px 0;
   font-size: 1em;
-  color: #555; /* Lighter text for details */
+  color: #555;
   display: flex;
 }
 
 .country-info strong {
   font-weight: 600;
-  color: #141414; /* Darker text for labels */
+  color: #141414;
   width: 120px;
   flex-shrink: 0;
   margin-right: 8px;
@@ -260,8 +253,8 @@ input.input-error {
 }
 
 .error-message {
-  color: #ff6e6e; /* Using --error */
-  background-color: #ffe0e0; /* Light red based on your --error */
+  color: #ff6e6e;
+  background-color: #ffe0e0;
   border: 1px solid #ffbdc3;
   padding: 15px;
   border-radius: 6px;
@@ -271,7 +264,7 @@ input.input-error {
 
 .loading-message,
 .initial-message {
-  color: #777; /* Slightly darker grey */
+  color: #777;
   font-style: italic;
   text-align: center;
   padding: 30px 0;
@@ -280,9 +273,16 @@ input.input-error {
 .app-footer {
   margin-top: 30px;
   padding-top: 20px;
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid var(--color-grey-light);
   font-size: 0.85em;
-  color: #777;
+  color: var(--text-color-secondary, #777);
   text-align: center;
+}
+
+.footer-line {
+  margin-bottom: 4px;
+}
+.footer-line:last-child {
+  margin-bottom: 0;
 }
 </style>

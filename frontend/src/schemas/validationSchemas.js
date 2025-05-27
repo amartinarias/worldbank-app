@@ -12,5 +12,5 @@ export const worldBankSchema = yup.object({
         // Ensures the field is not empty or null
         .transform(value => value.toUpperCase())
         // Ensures the field contains exactly 2 or 3 uppercase letters (A-Z).
-        .matches(/^[A-Z]{2,3}$/, 'Must be 2 or 3 letters.'),
+        .matches(/^[A-Z]{2,3}$/, 'ISO code must be 2 or 3 letters.'),
 });
