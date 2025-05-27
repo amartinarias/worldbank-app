@@ -1,79 +1,131 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
+/* Basic Styles for World Bank App */
 
 body {
+  font-family: Arial, sans-serif;
+  /* Standard, simple font */
+  line-height: 1.6;
+  background-color: #f4f4f4;
+  /* Light grey background */
+  color: #333;
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-.card {
-  padding: 2em;
+  padding: 20px;
+  /* Add some padding around */
 }
 
 #app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  max-width: 500px;
+  /* A reasonable container size */
+  margin: 40px auto;
+  /* Center it with some top margin */
+  background-color: #fff;
+  padding: 25px 30px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* Subtle shadow */
   text-align: center;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+h1 {
+  color: #005A9C;
+  /* A slightly 'official' blue */
+  font-size: 1.6em;
+  margin-bottom: 20px;
+}
+
+p {
+  font-size: 0.95em;
+  color: #555;
+  margin-bottom: 30px;
+}
+
+/* --- Search Area --- */
+
+.search-box {
+  margin-bottom: 30px;
+}
+
+.search-box label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.search-box input[type="text"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+  text-align: center;
+  width: 120px;
+  /* Specific width for ISO codes */
+  margin-right: 10px;
+  /* Space between input and button */
+  text-transform: uppercase;
+  /* Helps guide user */
+}
+
+.search-box button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  /* Simple blue */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1em;
+  cursor: pointer;
+  vertical-align: top;
+  /* Align with input */
+}
+
+.search-box button:hover {
+  background-color: #0056b3;
+}
+
+/* --- Results Area --- */
+
+.results-area {
+  margin-top: 25px;
+  padding: 20px;
+  background-color: #e9ecef;
+  /* Slightly different background for results */
+  border-radius: 4px;
+  text-align: left;
+  /* Results should be left-aligned */
+  min-height: 80px;
+}
+
+.country-info p {
+  margin: 8px 0;
+  /* Tighter spacing for results */
+  font-size: 1em;
+  /* Standard text size */
+  color: #333;
+}
+
+.country-info strong {
+  display: inline-block;
+  width: 110px;
+  /* Helps align values */
+  color: #000;
+}
+
+/* --- Messages --- */
+
+.error-message {
+  color: #721c24;
+  /* Dark red */
+  background-color: #f8d7da;
+  /* Light red */
+  border: 1px solid #f5c6cb;
+  padding: 10px;
+  border-radius: 4px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.loading-message,
+.initial-message {
+  color: #666;
+  font-style: italic;
+  text-align: center;
 }
