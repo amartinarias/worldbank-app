@@ -1,0 +1,32 @@
+// Test cases for the World App API to retrieve country data by code
+@baseUrl = http://localhost:3000
+
+### Test Case 1: Get a valid country - SPAIN (ES)
+# Expects: 200 OK with country data
+GET {{baseUrl}}/api/country/ES
+Accept: application/json
+
+### Test Case 2: Get another valid country - Great Britain (GB)
+# Expects: 200 OK with country data
+GET {{baseUrl}}/api/country/GB
+Accept: application/json
+
+### Test Case 3: Get a valid 3-letter code - France (FR / FRA)
+# Expects: 200 OK with country data
+GET {{baseUrl}}/api/country/FRA
+Accept: application/json
+
+### Test Case 4: Get a code that's valid format but doesn't exist
+# Expects: 404 Not Found (based on our server logic)
+GET {{baseUrl}}/api/country/XYZ
+Accept: application/json
+
+### Test Case 5: Get an invalid format code (e.g., too short)
+# Expects: Error (likely 404)
+GET {{baseUrl}}/api/country/X
+Accept: application/json
+
+### Test Case 6: Get another invalid format code (e.g., numbers)
+# Expects: Error (likely 500 or 400)
+GET {{baseUrl}}/api/country/123
+Accept: application/json

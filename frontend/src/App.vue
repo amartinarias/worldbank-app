@@ -3,7 +3,7 @@ import CountrySearch from "./components/CountrySearch.vue";
 </script>
 
 <template>
-  <CountrySearch msg="Vite + Vue" />
+  <CountrySearch />
 </template>
 
 <style scoped>

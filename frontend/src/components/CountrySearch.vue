@@ -1,29 +1,39 @@
 <script setup>
 import { ref } from "vue";
+import { useWorldBankApi } from "../composables/useWorldBank";
+
+// Call the composable to get its state and methods
+const { countryData, error, fetchCountry } = useWorldBankApi();
 
 const isoCode = ref("");
-const countryData = ref(null);
-const error = ref(null);
 const message = ref("Enter a code and click search.");
 
-const handleSearch = () => {
-  console.log("Searching for:", isoCode.value);
-  // Test code to simulate a search
-  if (isoCode.value.toUpperCase() === "US") {
-    countryData.value = { name: "United States", capital: "Washington D.C." }; // Dummy data
-    error.value = null;
-    message.value = "";
-  } else if (isoCode.value) {
-    error.value = `No data found for ${isoCode.value}.`;
-    countryData.value = null;
-    message.value = "";
-  } else {
-    error.value = "Please enter an ISO code.";
-    countryData.value = null;
-    message.value = "";
-  }
-  console.log("Search completed.", message.value);
-};
+// Create the handler function for the search button
+function handleSearch() {
+  const code = isoCode.value.trim().toUpperCase();
+
+  // Call the 'fetchCountry' method from the composable
+  fetchCountry(code);
+}
+
+// const handleSearch = () => {
+//   console.log("Searching for:", isoCode.value);
+//   // Test code to simulate a search
+//   if (isoCode.value.toUpperCase() === "US") {
+//     countryData.value = { name: "United States", capital: "Washington D.C." }; // Dummy data
+//     error.value = null;
+//     message.value = "";
+//   } else if (isoCode.value) {
+//     error.value = `No data found for ${isoCode.value}.`;
+//     countryData.value = null;
+//     message.value = "";
+//   } else {
+//     error.value = "Please enter an ISO code.";
+//     countryData.value = null;
+//     message.value = "";
+//   }
+//   console.log("Search completed.", message.value);
+// };
 </script>
 
 <template>
@@ -37,7 +47,7 @@ const handleSearch = () => {
     <div class="results-area">
       <p v-if="!countryData && !error">{{ message }}</p>
       <div v-if="countryData">
-        Name: {{ countryData.name }} Capital: {{ countryData.name }}
+        {{ countryData }}
       </div>
       <div v-if="error">{{ error }}</div>
     </div>
