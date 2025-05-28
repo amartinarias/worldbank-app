@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1748439104958" clover="3.2.0">
-  <project timestamp="1748439104958" name="All files">
-    <metrics statements="326" coveredstatements="275" conditionals="50" coveredconditionals="32" methods="12" coveredmethods="10" elements="388" coveredelements="317" complexity="0" loc="326" ncloc="326" packages="4" files="7" classes="7"/>
+<coverage generated="1748469649980" clover="3.2.0">
+  <project timestamp="1748469649980" name="All files">
+    <metrics statements="319" coveredstatements="268" conditionals="50" coveredconditionals="32" methods="12" coveredmethods="10" elements="381" coveredelements="310" complexity="0" loc="319" ncloc="319" packages="4" files="7" classes="7"/>
     <package name="src">
       <metrics statements="15" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="0"/>
       <file name="App.vue" path="/Users/amartinarias/Documents/Development/Personal Projects/worldbank-app/frontend/src/App.vue">
@@ -27,9 +27,9 @@
       </file>
     </package>
     <package name="src.components">
-      <metrics statements="148" coveredstatements="145" conditionals="25" coveredconditionals="17" methods="2" coveredmethods="2"/>
+      <metrics statements="141" coveredstatements="138" conditionals="25" coveredconditionals="17" methods="2" coveredmethods="2"/>
       <file name="CountrySearch.vue" path="/Users/amartinarias/Documents/Development/Personal Projects/worldbank-app/frontend/src/components/CountrySearch.vue">
-        <metrics statements="148" coveredstatements="145" conditionals="25" coveredconditionals="17" methods="2" coveredmethods="2"/>
+        <metrics statements="141" coveredstatements="138" conditionals="25" coveredconditionals="17" methods="2" coveredmethods="2"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
         <line num="5" count="1" type="stmt"/>
@@ -169,13 +169,6 @@
         <line num="164" count="1" type="stmt"/>
         <line num="165" count="1" type="stmt"/>
         <line num="166" count="1" type="stmt"/>
-        <line num="168" count="1" type="stmt"/>
-        <line num="169" count="1" type="stmt"/>
-        <line num="170" count="1" type="stmt"/>
-        <line num="171" count="1" type="stmt"/>
-        <line num="172" count="1" type="stmt"/>
-        <line num="173" count="1" type="stmt"/>
-        <line num="174" count="1" type="stmt"/>
         <line num="175" count="1" type="stmt"/>
         <line num="176" count="1" type="stmt"/>
       </file>
