@@ -17,14 +17,14 @@ app.get('/api/country/:code', async (req, res) => {
     // 2. Construct the World Bank API URL
     const worldBankUrl = `http://api.worldbank.org/v2/country/${isoCode}?format=json`;
 
-    console.log(`[Server] Requesting: ${worldBankUrl}`);
+    // console.log(`[Server] Requesting: ${worldBankUrl}`);
 
     try {
         // 3. Call the World Bank API
         const response = await axios.get(worldBankUrl);
         const data = response.data;
 
-        console.log(`[Server] Response received:`, data);
+        // console.log(`[Server] Response received:`, data);
         // 4. Check response & extract data
         if (data && data.length > 1 && data[1] && data[1].length > 0) {
             const countryData = data[1][0];
