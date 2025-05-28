@@ -62,7 +62,7 @@ The application includes basic input validation and provides user-friendly error
 
 1.  **Clone the repository (if applicable, or download the source code):**
     ```bash
-    git clone <your-repository-url>
+    git clone https://github.com/amartinarias/worldbank-app.git
     cd worldbank-app
     ```
 
