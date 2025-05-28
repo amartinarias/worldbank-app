@@ -3,7 +3,6 @@ import { ref } from 'vue';
 import axios from 'axios';
 
 export function useWorldBankApi() {
-    // Reactive state (Only data and error)
     const countryData = ref(null);
     const error = ref(null);
     const isLoading = ref(false);
@@ -14,17 +13,18 @@ export function useWorldBankApi() {
         countryData.value = null;
         error.value = null;
 
-        // 2. Define the URL to your backend
         const apiUrl = `http://localhost:3000/api/country/${isoCode}`;
 
         try {
             // Make the API call using axios
             const response = await axios.get(apiUrl);
+
             // --- ARTIFICIAL DELAY FOR TESTING ---
             const artificialDelayMs = 2500; // Delay for 2.5 seconds
             console.log(`[Server] Introducing an artificial delay of ${artificialDelayMs}ms...`);
             await new Promise(resolve => setTimeout(resolve, artificialDelayMs));
             // --- END OF ARTIFICIAL DELAY ---
+
             countryData.value = response.data; // On success, store the data
         } catch (err) {
             console.error('[Composable] Error fetching country data:', err);

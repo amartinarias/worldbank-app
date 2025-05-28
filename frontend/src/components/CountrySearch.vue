@@ -23,6 +23,7 @@ async function handleSearch() {
   }
 }
 </script>
+
 <template>
   <div class="country-search-container">
     <header class="app-header">
@@ -36,18 +37,24 @@ async function handleSearch() {
 
     <div class="search-box">
       <label for="isoInput">Enter Country ISO Code:</label>
-      <input
-        type="text"
-        id="isoInput"
-        :value="formData.isoCode"
-        @input="updateField('isoCode', $event.target.value)"
-        placeholder="e.g., US, GBR"
-        :class="{ 'input-error': formErrors.isoCode }"
-        @keyup.enter="handleSearch"
-      />
-      <button @click="handleSearch" :disabled="isLoading" class="search-button">
-        {{ isLoading ? "Searching..." : "Search" }}
-      </button>
+      <div class="input-button-group">
+        <input
+          type="text"
+          id="isoInput"
+          :value="formData.isoCode"
+          @input="updateField('isoCode', $event.target.value)"
+          placeholder="e.g., US, GBR"
+          :class="{ 'input-error': formErrors.isoCode }"
+          @keyup.enter="handleSearch"
+        />
+        <button
+          @click="handleSearch"
+          :disabled="isLoading"
+          class="search-button"
+        >
+          {{ isLoading ? "Searching..." : "Search" }}
+        </button>
+      </div>
       <small class="validation-error" v-if="formErrors.isoCode">
         {{ formErrors.isoCode }}
       </small>
@@ -91,7 +98,7 @@ async function handleSearch() {
     </div>
 
     <footer class="app-footer">
-      <div class="footer-line">
+      <div>
         Data provided by
         <a
           href="https://www.worldbank.org/"
@@ -100,9 +107,12 @@ async function handleSearch() {
           >The World Bank</a
         >
       </div>
-      <div class="footer-line">
+      <div>
         Created by
-        <a href="https://github.com/amartinarias" target="_blank"
+        <a
+          href="https://github.com/amartinarias"
+          target="_blank"
+          rel="noopener noreferrer"
           >Alice Martin</a
         >
       </div>
@@ -111,50 +121,19 @@ async function handleSearch() {
 </template>
 
 <style scoped>
-.loading-display {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: #777;
-  font-style: italic;
-  padding: 30px 0;
-  width: 100%;
-}
-
-.spinner {
-  border: 5px solid rgba(128, 128, 128, 0.2);
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border-left-color: #6b49bf;
-  animation: spin 1s linear infinite;
-  margin-bottom: 15px;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-.loading-message-text {
-  font-size: 0.95em;
-}
-
 .country-search-container {
   background-color: #ffffff;
   max-width: 650px;
   width: 100%;
-  margin-top: 20px;
+  margin: 40px auto;
   padding: 30px 35px;
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   color: #141414;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
 }
 
 .app-header {
@@ -164,20 +143,21 @@ async function handleSearch() {
   gap: 12px;
   margin-bottom: 30px;
   padding-bottom: 15px;
-  border-bottom: 1px solid #e0e0e0;
 }
 
 .app-icon {
   width: 36px;
   height: 36px;
   vertical-align: middle;
+  color: #6b49bf;
 }
 
 .app-title {
-  font-size: 2.2em;
+  font-size: 1.8em;
   color: #6b49bf;
   font-weight: bold;
   margin: 0;
+  display: block;
 }
 
 .search-box {
@@ -186,12 +166,22 @@ async function handleSearch() {
   flex-direction: column;
   align-items: center;
   gap: 12px;
+  width: 100%;
 }
 
 .search-box label {
   font-weight: 500;
   color: #555;
   font-size: 0.95em;
+}
+
+.input-button-group {
+  display: flex;
+  align-items: stretch;
+  flex-direction: row;
+  gap: 10px;
+  width: auto;
+  justify-content: center;
 }
 
 input[type="text"] {
@@ -203,6 +193,7 @@ input[type="text"] {
   width: 180px;
   color: #141414;
   transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
 }
 
 input[type="text"]:focus {
@@ -231,6 +222,8 @@ input.input-error {
   font-size: 1em;
   font-weight: 500;
   transition: background-color 0.2s, transform 0.1s;
+  white-space: nowrap;
+  box-sizing: border-box;
 }
 
 .search-button:hover {
@@ -259,6 +252,16 @@ input.input-error {
   background-color: #f9f9f9;
   min-height: 150px;
   text-align: left;
+  flex-grow: 1; /* For sticky footer */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.country-info {
+  width: 100%;
+  text-align: left;
 }
 
 .country-info h2 {
@@ -277,7 +280,6 @@ input.input-error {
   color: #555;
   display: flex;
 }
-
 .country-info strong {
   font-weight: 600;
   color: #141414;
@@ -297,29 +299,177 @@ input.input-error {
   border-radius: 6px;
   font-weight: 500;
   text-align: center;
+  align-self: center;
+  max-width: 90%;
 }
 
-.loading-message,
+.loading-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #777;
+  font-style: italic;
+  padding: 30px 0;
+  width: 100%;
+}
+.spinner {
+  border: 5px solid rgba(128, 128, 128, 0.2);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border-left-color: #6b49bf;
+  animation: spin 1s linear infinite;
+  margin-bottom: 15px;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.loading-message-text {
+  font-size: 0.95em;
+}
+
 .initial-message {
   color: #777;
   font-style: italic;
   text-align: center;
   padding: 30px 0;
+  width: 100%;
 }
 
 .app-footer {
-  margin-top: 30px;
-  padding-top: 20px;
-  border-top: 1px solid var(--color-grey-light);
+  margin-top: auto;
+  padding: 20px 35px;
   font-size: 0.85em;
   color: var(--text-color-secondary, #777);
   text-align: center;
 }
 
-.footer-line {
-  margin-bottom: 4px;
+.app-footer a {
+  color: #6b49bf;
+  text-decoration: none;
+  font-weight: 500;
 }
-.footer-line:last-child {
-  margin-bottom: 0;
+.app-footer a:hover {
+  text-decoration: underline;
+  color: #4f2ba9;
+}
+
+/* ==========================================================================
+   Responsive Adjustments
+   ========================================================================== */
+
+/* Medium screens (tablets) */
+@media (max-width: 768px) {
+  .country-search-container {
+    margin: 20px 15px;
+    padding: 25px;
+  }
+
+  .app-title {
+    font-size: 1.6em;
+  }
+
+  input[type="text"] {
+    width: 160px;
+  }
+}
+
+/* Small screens (mobile phones) */
+@media (max-width: 480px) {
+  .country-search-container {
+    margin: 0;
+    padding: 20px 15px;
+    border-radius: 0;
+    box-shadow: none;
+    min-height: 100vh;
+  }
+
+  .app-header {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: none;
+    justify-content: center;
+  }
+  .app-icon {
+    width: 44px;
+    height: 44px;
+  }
+  .app-title {
+    display: none;
+  }
+
+  .search-box label {
+    font-size: 0.9em;
+  }
+
+  .input-button-group {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: none;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    font-size: 1em;
+    padding: 10px 12px;
+    margin-bottom: 10px;
+    margin-right: 0;
+  }
+
+  .search-button {
+    width: 100%;
+    font-size: 1em;
+    padding: 10px 15px;
+  }
+
+  .results-area {
+    padding: 15px;
+  }
+
+  .country-info h2 {
+    font-size: 1.3em;
+  }
+  .country-info p {
+    font-size: 0.9em;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 8px;
+  }
+  .country-info strong {
+    width: auto;
+    margin-bottom: 2px;
+    font-weight: bold;
+  }
+  .country-info span {
+    padding-left: 0;
+  }
+
+  .error-message,
+  .loading-display {
+    padding: 10px;
+    font-size: 0.9em;
+  }
+  .spinner {
+    width: 32px;
+    height: 32px;
+    border-width: 4px;
+  }
+
+  .app-footer {
+    margin-top: auto;
+    padding-top: 25px;
+    padding-bottom: 10px;
+    font-size: 0.85em;
+    color: #777;
+    text-align: center;
+    line-height: 1.6;
+  }
 }
 </style>

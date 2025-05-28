@@ -37,3 +37,15 @@ a:hover {
   text-decoration: underline;
   color: var(--primary-accent);
 }
+
+@media (max-width: 480px) {
+  body {
+    background-color: white;
+    /* White background for mobile */
+    padding: 0;
+  }
+
+  #app {
+    padding: 10px;
+  }
+}
