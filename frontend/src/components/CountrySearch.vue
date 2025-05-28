@@ -93,28 +93,32 @@ watch(countryData, (newData) => {
         <div class="spinner"></div>
         <p class="loading-message-text">Fetching data...</p>
       </div>
-      <div v-if="error && !isLoading" class="error-message">{{ error }}</div>
-      <div v-if="countryData && !isLoading" class="country-info">
+
+      <div v-else-if="error" class="error-message">
+        {{ error }}
+      </div>
+
+      <div v-else-if="countryData" class="country-info">
         <h2>{{ countryData.name }} ({{ countryData.iso2Code }})</h2>
         <p>
-          <strong>Capital:</strong>
-          <span>{{ countryData.capitalCity || "N/A" }}</span>
+          <strong>Capital:</strong
+          ><span>{{ countryData.capitalCity || "N/A" }}</span>
         </p>
         <p>
-          <strong>Region:</strong>
-          <span>{{ countryData.region?.value || "N/A" }}</span>
+          <strong>Region:</strong
+          ><span>{{ countryData.region?.value || "N/A" }}</span>
         </p>
         <p>
-          <strong>Income Level:</strong>
-          <span>{{ countryData.incomeLevel?.value || "N/A" }}</span>
+          <strong>Income Level:</strong
+          ><span>{{ countryData.incomeLevel?.value || "N/A" }}</span>
         </p>
         <p>
-          <strong>Latitude:</strong>
-          <span>{{ countryData.latitude || "N/A" }}</span>
+          <strong>Latitude:</strong
+          ><span>{{ countryData.latitude || "N/A" }}</span>
         </p>
         <p>
-          <strong>Longitude:</strong>
-          <span>{{ countryData.longitude || "N/A" }}</span>
+          <strong>Longitude:</strong
+          ><span>{{ countryData.longitude || "N/A" }}</span>
         </p>
         <div
           v-if="countryData.latitude && countryData.longitude"
@@ -132,10 +136,18 @@ watch(countryData, (newData) => {
           Map data (latitude/longitude) not available.
         </p>
       </div>
-      <div
-        v-if="!countryData && !error && !isLoading && !formErrors.isoCode"
-        class="initial-message"
-      >
+
+      <div v-else-if="formErrors.isoCode" class="validation-failure-display">
+        <p class="uh-oh-message">
+          <span class="failure-icon-unicode" role="img" aria-label="Warning"
+            >⚠️</span
+          >
+          Please check your input
+        </p>
+        <p class="sub-text-message">{{ formErrors.isoCode }}</p>
+      </div>
+
+      <div v-else class="initial-message">
         Enter a 2 or 3 letter ISO code to get country details.
       </div>
     </div>
@@ -281,6 +293,14 @@ input.input-error {
   transform: translateY(0);
 }
 
+.validation-failure-display {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 20px 15px;
+  width: 100%;
+}
+
 .validation-error {
   color: #ff6e6e;
   font-size: 0.9em;
@@ -335,11 +355,11 @@ input.input-error {
 }
 
 .map-preview-container {
-  height: 250px; /* Or your desired height */
-  width: 100%; /* Take full width of its container */
+  height: 250px;
+  width: 100%;
   margin-top: 20px;
   border-radius: 6px;
-  border: 1px solid #ddd; /* Optional border */
+  border: 1px solid #ddd;
   z-index: 0;
 }
 
@@ -362,7 +382,17 @@ input.input-error {
   align-self: center;
   max-width: 90%;
 }
+.uh-oh-message {
+  font-size: 1.1em;
+  color: #555;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
 
+.sub-text-message {
+  font-size: 0.9em;
+  color: #ff6e6e;
+}
 .loading-display {
   display: flex;
   flex-direction: column;
