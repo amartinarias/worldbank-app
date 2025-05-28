@@ -163,7 +163,7 @@ watch(countryData, (newData) => {
           >The World Bank</a
         >
       </div>
-      <div>
+      <!-- <div>
         Created by
         <a
           href="https://github.com/amartinarias"
@@ -171,7 +171,7 @@ watch(countryData, (newData) => {
           rel="noopener noreferrer"
           >Alice Martin</a
         >
-      </div>
+      </div> -->
     </footer>
   </div>
 </template>
@@ -181,8 +181,8 @@ watch(countryData, (newData) => {
   background-color: #ffffff;
   max-width: 650px;
   width: 100%;
-  margin: 40px auto;
-  padding: 30px 35px;
+  margin: 22px auto;
+  padding: 28px 35px;
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   color: #141414;
@@ -197,7 +197,7 @@ watch(countryData, (newData) => {
   align-items: center;
   justify-content: center;
   gap: 12px;
-  margin-bottom: 30px;
+  margin-bottom: 16px;
   padding-bottom: 15px;
 }
 
@@ -217,7 +217,7 @@ watch(countryData, (newData) => {
 }
 
 .search-box {
-  margin-bottom: 25px;
+  margin-bottom: 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -310,7 +310,7 @@ input.input-error {
 }
 
 .results-area {
-  margin-top: 20px;
+  margin-top: 14px;
   padding: 20px;
   border-radius: 8px;
   background-color: #f9f9f9;
@@ -356,7 +356,7 @@ input.input-error {
 }
 
 .map-preview-container {
-  height: 250px;
+  height: 220px;
   width: 100%;
   margin-top: 20px;
   border-radius: 6px;
@@ -435,7 +435,7 @@ input.input-error {
 
 .app-footer {
   margin-top: auto;
-  padding: 20px 35px;
+  padding-top: 20px;
   font-size: 0.85em;
   color: var(--text-color-secondary, #777);
   text-align: center;
