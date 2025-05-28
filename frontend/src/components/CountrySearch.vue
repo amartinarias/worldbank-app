@@ -1,3 +1,4 @@
+// CountrySearch.vue
 <script setup>
 import { watch } from "vue";
 import { useWorldBankApi } from "../composables/useWorldBank";
