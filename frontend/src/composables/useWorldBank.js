@@ -20,9 +20,9 @@ export function useWorldBankApi() {
             const response = await axios.get(apiUrl);
 
             // --- ARTIFICIAL DELAY FOR TESTING ---
-            const artificialDelayMs = 2500; // Delay for 2.5 seconds
-            console.log(`[Server] Introducing an artificial delay of ${artificialDelayMs}ms...`);
-            await new Promise(resolve => setTimeout(resolve, artificialDelayMs));
+            // const artificialDelayMs = 2500; // Delay for 2.5 seconds
+            // console.log(`[Server] Introducing an artificial delay of ${artificialDelayMs}ms...`);
+            // await new Promise(resolve => setTimeout(resolve, artificialDelayMs));
             // --- END OF ARTIFICIAL DELAY ---
 
             countryData.value = response.data; // On success, store the data

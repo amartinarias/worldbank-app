@@ -1,27 +1,55 @@
 <script setup>
+import { watch } from "vue";
 import { useWorldBankApi } from "../composables/useWorldBank";
 import { useSimpleForm } from "../composables/useSimpleForm";
 import { worldBankSchema } from "../schemas/validationSchemas";
+import { useLeafletMap } from "../composables/useLeafletMap";
 
-// Call the composable to get its state and methods
+// Call the composables to get its state and methods
 const { countryData, error, fetchCountry, isLoading } = useWorldBankApi();
 const { formData, formErrors, validateForm, updateField } = useSimpleForm(
   { isoCode: "" },
   worldBankSchema
 );
 
+// Leaflet Map Composable - pass the ID of your map div
+const { createOrUpdateMap, removeMap } = useLeafletMap("map-preview");
+
 /**
  * @description Validates user input and initiates the API call
  * to fetch country data if validation passes.
  */
 async function handleSearch() {
+  // Clear previous API related state
+  if (error.value) error.value = null;
+  if (countryData.value) countryData.value = null;
+  removeMap(); // Clear the map before a new search
+
   const isFormValid = await validateForm();
 
-  //nIf valid, call the API composable's fetch function
+  //If valid, call the API composable's fetch function
   if (isFormValid) {
     await fetchCountry(formData.value.isoCode);
   }
 }
+
+// Watch for changes in countryData to update the map
+watch(countryData, (newData) => {
+  if (newData && newData.latitude && newData.longitude) {
+    const lat = parseFloat(newData.latitude);
+    const lon = parseFloat(newData.longitude);
+
+    if (!isNaN(lat) && !isNaN(lon)) {
+      createOrUpdateMap(lat, lon, newData.name);
+    } else {
+      console.warn("Invalid or missing coordinates for map:", newData);
+      removeMap();
+    }
+  } else {
+    // If no data or missing coordinates, remove map
+    removeMap();
+  }
+});
 </script>
 
 <template>
@@ -87,6 +115,21 @@ async function handleSearch() {
         <p>
           <strong>Longitude:</strong>
           <span>{{ countryData.longitude || "N/A" }}</span>
+        </p>
+        <div
+          v-if="countryData.latitude && countryData.longitude"
+          id="map-preview"
+          class="map-preview-container"
+        >
+          {/* Map will be rendered here by Leaflet */}
+        </div>
+        <p
+          v-else-if="
+            countryData && (!countryData.latitude || !countryData.longitude)
+          "
+          class="no-map-data"
+        >
+          Map data (latitude/longitude) not available.
         </p>
       </div>
       <div
@@ -289,6 +332,23 @@ input.input-error {
 }
 .country-info span {
   flex-grow: 1;
+}
+
+.map-preview-container {
+  height: 250px; /* Or your desired height */
+  width: 100%; /* Take full width of its container */
+  margin-top: 20px;
+  border-radius: 6px;
+  border: 1px solid #ddd; /* Optional border */
+  z-index: 0;
+}
+
+.no-map-data {
+  font-style: italic;
+  color: #777;
+  margin-top: 15px;
+  text-align: center;
+  font-size: 0.9em;
 }
 
 .error-message {
