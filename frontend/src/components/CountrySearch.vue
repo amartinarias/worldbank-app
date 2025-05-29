@@ -12,8 +12,6 @@ const { formData, formErrors, validateForm, updateField } = useSimpleForm(
   { isoCode: "" },
   worldBankSchema
 );
-
-// Leaflet Map Composable - pass the ID of your map div
 const { createOrUpdateMap, removeMap } = useLeafletMap("map-preview");
 
 /**
